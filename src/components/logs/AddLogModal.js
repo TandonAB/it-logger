@@ -66,20 +66,19 @@ const AddLogModal = ({ addLog }) => {
           </div>
         </div>
 
-        <div className="roq">
+        <div className="row">
           <div className="input-field">
-            <p>
-              <label htmlFor="">
-                <input
-                  type="checkbox"
-                  className="filled-in"
-                  checked={attention}
-                  value={attention}
-                  onChange={(e) => setAttention(!attention)}
-                />
-                <span>Need Attentinon</span>
-              </label>
-            </p>
+            <label htmlFor="attention">
+              <input
+                id="attention"
+                type="checkbox"
+                className="filled-in"
+                checked={attention}
+                value={attention}
+                onChange={(e) => setAttention(!attention)}
+              />
+              <span>Need Attentinon</span>
+            </label>
           </div>
         </div>
       </div>

@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import { updateLog } from '../../actions/logActions';
 
-const EditLogModal = () => {
+const EditLogModal = ({ current, updateLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
+
+  useEffect(() => {
+    if (current) {
+      setMessage(current.message);
+      setAttention(current.attention);
+      setTech(current.tech);
+    }
+  }, [current]);
 
   const onMessage = (event) => setMessage(event.target.value);
   const onTech = (event) => setTech(event.target.value);
@@ -13,7 +24,16 @@ const EditLogModal = () => {
     if (message === '' || tech === '') {
       M.toast({ html: 'Please fill all the fields..' });
     } else {
-      console.log(message, tech, attention);
+      const editLog = {
+        id: current.id,
+        message,
+        attention,
+        tech,
+        date: new Date(),
+      };
+
+      updateLog(editLog);
+      M.toast({ html: 'Log updated' });
 
       // Clear Fields
       setMessage('');
@@ -34,9 +54,6 @@ const EditLogModal = () => {
               value={message}
               onChange={onMessage}
             />
-            <label htmlFor="message" className="active">
-              Log Message
-            </label>
           </div>
         </div>
 
@@ -57,10 +74,10 @@ const EditLogModal = () => {
           </div>
         </div>
 
-        <div className="roq">
+        <div className="row">
           <div className="input-field">
             <p>
-              <label htmlFor="">
+              <label>
                 <input
                   type="checkbox"
                   className="filled-in"
@@ -80,16 +97,25 @@ const EditLogModal = () => {
           onClick={onSubmit}
           className="modal-close waves-effect waves-light blue btn"
         >
-          Enter
+          Update
         </a>
       </div>
     </div>
   );
 };
 
+EditLogModal.propTypes = {
+  current: PropTypes.object,
+  updateLog: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  current: state.log.current,
+});
+
 const modalStyle = {
   width: '75%',
   height: '75%',
 };
 
-export default EditLogModal;
+export default connect(mapStateToProps, { updateLog })(EditLogModal);
