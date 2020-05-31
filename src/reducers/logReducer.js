@@ -1,4 +1,4 @@
-import { GET_LOGS, SET_LOADING, LOGS_ERROR } from '../actions/type';
+import { GET_LOGS, SET_LOADING, LOGS_ERROR, ADD_LOG } from '../actions/type';
 
 const initialState = {
   logs: null,
@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_LOGS:
       return { ...state, logs: action.payload, loading: false };
+    case ADD_LOG:
+      return { ...state };
     case SET_LOADING:
       return { ...state, loading: true };
     case LOGS_ERROR:
