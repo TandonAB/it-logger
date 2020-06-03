@@ -46,7 +46,7 @@ const EditLogModal = ({ current, updateLog }) => {
   return (
     <div id="edit-log-modal" className="modal" style={modalStyle}>
       <div className="modal-content">
-        <h4>Enter/Edit System Log</h4>
+        <h4>Edit System Log</h4>
         <div className="row">
           <div className="input-field">
             <input
@@ -115,7 +115,8 @@ const mapStateToProps = (state) => ({
 
 const modalStyle = {
   width: '75%',
-  height: '75%',
+  height: 'auto',
+  padding: '15px',
 };
 
 export default connect(mapStateToProps, { updateLog })(EditLogModal);

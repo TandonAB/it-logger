@@ -97,7 +97,8 @@ const AddLogModal = ({ addLog }) => {
 
 const modalStyle = {
   width: '75%',
-  height: '75%',
+  height: 'auto',
+  padding: '15px',
 };
 
 AddLogModal.propTypes = {
